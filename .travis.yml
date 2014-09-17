@@ -17,3 +17,19 @@ notifications:
       - dev@maxmind.com
     on_success: change
     on_failure: always
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "TCbCICRprgO9KdJrwTtkoiyKbN3mp1NjK8j5+fHMsHaHh9sVafVrGL0DKoR3WJOeVhNa2lzSyr0YHeYsqUIEVWnTy0nrt/qNMOsTwX/UPDdVgLEsWp+zf8xID5sXZHBdnDJU1arGsZH449NOuvh3DmgqeocLzrWku5dC/Ts5ZEQ="
+
+addons:
+  coverity_scan:
+    project:
+      name: "maxmind/MaxMind-DB-Reader-dotnet"
+      description: "Build submitted via Travis CI"
+    notification_email: dev@maxmind.com
+    build_command_prepend: "xbuild /t:Clean"
+    build_command:   "xbuild /t:Rebuild"
+    branch_pattern: .*coverity.*
